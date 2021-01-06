@@ -12,8 +12,6 @@ if(!empty($_GET['h'])){
         include "./view/front/daftardosen.php";
     }else if($_GET['h'] == "daftarmahasiswa"){
         include "./view/front/daftarmahasiswa.php";
-    } else if($_GET['h'] == "auth"){
-            include "./view/front/auth.php";  
     } 
     
 } else{

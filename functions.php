@@ -58,7 +58,6 @@ function daftardosen() {
     }
 }
 
-
 function daftarmahasiswa(){
     global $conn;
     
@@ -76,7 +75,7 @@ function daftarmahasiswa(){
             return false;
         } else {
             $pass= md5($pasword);
-            $sql = mysqli_query($conn, "INSERT INTO users VALUES    ('', 
+            $sql = mysqli_query($conn, "INSERT INTO req_mhs VALUES    ('', 
                                                                     '$npm', 
                                                                     '$nama', 
                                                                     '$username', 
@@ -98,69 +97,115 @@ function daftarmahasiswa(){
                         header("Location:admin.php");
                     } 
                 } else {
-                    echo "<script>alert('Gagal terhubung kesession')</script>";
+                    echo "<script>alert('Silahkan konfirmasi pembuatan akun ke dosen')</script>";
                 }
             }
         }
     }
 }
 
-
 function login() {
     global $conn;
-
+    global $auth;
+    global $secret;
+    global $tolerance;
+    
     @$username = strtolower(stripslashes($_POST['username']));
     @$inpassword = $_POST['passwor'];
 
     if (isset($_POST['lanjut'])) {
-        $cek_user = mysqli_query($conn, "SELECT * FROM users WHERE username='$username'");
-        $cek = mysqli_num_rows($cek_user);
-        if ($cek > 0) {
-            $data = mysqli_fetch_assoc($cek_user);
-            $cek_pass = $data['pasword'];
-            $newpas = md5($inpassword);
-            if ($cek_pass == $newpas) {       
-                if ($data['level'] == 'dosen') {
-                    $_SESSION['dosen'] = $data['id'];
-                    $_SESSION['nama'] = $data['nama'];
-                    $_SESSION['level'] = $data['level'];
-                    header('Location:index.php?h=auth');
-                } elseif ($data['level'] == 'mahasiswa') {
-                    $_SESSION['mahasiswa'] = $data['id'];
-                    $_SESSION['nama'] = $data['nama'];
-                    $_SESSION['level'] = $data['level'];
-                    header("Location:index.php?h=auth");
-                } 
+        $cek_user1 = mysqli_query($conn, "SELECT * FROM req_mhs WHERE username='$username'");
+        $cek1 = mysqli_num_rows($cek_user1);
+        if ($cek1 > 0) {
+            echo "<script>alert('Akun kamu belum aktif, Silahkan konfirmasi pembuatan akun ke dosen')</script>";
+
+        }else {
+
+            $cek_user2 = mysqli_query($conn, "SELECT * FROM users WHERE username='$username'");
+            $cek2 = mysqli_num_rows($cek_user2);
+            if ($cek2 > 0) {
+                $data = mysqli_fetch_assoc($cek_user2);
+                $cek_pass = $data['pasword'];
+                $newpas = md5($inpassword);
+                if ($cek_pass == $newpas) {    
+                    $code = $_POST['code'];
+                    $result = $auth->verifyCode($secret,$code,$tolerance);
+                    if ($result) {
+                        if ($data['level'] == 'dosen') {
+                            $_SESSION['dosen'] = $data['id'];
+                            $_SESSION['nama'] = $data['nama'];
+                            $_SESSION['level'] = $data['level'];
+                        } elseif ($data['level'] == 'mahasiswa') {
+                            $_SESSION['mahasiswa'] = $data['id'];
+                            $_SESSION['npm'] = $data['npm'];
+                            $_SESSION['nama'] = $data['nama'];
+                            $_SESSION['level'] = $data['level'];
+                        } 
+                    }else {
+                        echo "<script>alert('Kode google Authenticator salah!')</script>";
+                    }
+                } else {
+                    echo "<script>alert('password salah!')</script>";
+                }
             } else {
-                echo "<script>
-                alert('password salah')
-                </script>";
-                header("Location:index.php?h=login");
+                echo "<script>alert('username tidak ditemukan!')</script>";
             }
-        } else {
-        echo "<script>
-            alert('username tidak ditemukan')
-            </script>";
-            header("Location:index.php?h=login");
         }
     }
 }
 
-function auth() {
-    global $auth;
-    global $secret;
-    global $tolerance;
+function submitabsen() {
+    global $conn;
 
-    if (isset($_POST['btn-submit'])) {
-        $code = $_POST['code'];
-        $result = $auth->verifyCode($secret,$code,$tolerance);
-        if ($result) {
-            header("Location:admin.php");
-        }else {
-            echo "<p style='color:red'>KODE TIDAK VALID!</p>";
-            @session_start();
-            session_destroy();
-            header("Location:index.php?h=login");
+    @$npm = $_POST['npm'];
+    @$nama = $_POST['nama'];
+    @$tanggal = $_POST['tanggal'];
+    @$status = $_POST['status'];
+    @$keterangan = htmlspecialchars($_POST['keterangan']);
+
+    $result = mysqli_query($conn, "SELECT npm FROM tb_req_absen WHERE npm = '$npm'");
+        if (mysqli_fetch_assoc($result)) {
+            if ($result) {
+                $status = '2';
+            } else{
+                $status = '1';
+            }   
+            echo "<script>window.location.href='admin.php?b=absen&s=$status'</script>";
+            return false;
+        } else {
+            $sql = mysqli_query($conn, "INSERT INTO tb_req_absen VALUES    ('', 
+                                                                    '$npm', 
+                                                                    '$nama', 
+                                                                    '$tanggal', 
+                                                                    '$status',
+                                                                    '$keterangan'
+                                                                    )");
+            if ($sql) {
+                $status = '1';
+            } else{
+                $status = '2';
+            }   
+            echo "<script>window.location.href='admin.php?b=absen&s=$status'</script>";
         }
-    }
+}
+
+
+
+function alertabsen() {
+    if(!empty($_GET['s'])){
+        if($_GET['s'] == "1"){
+    ?>
+<div class="alert alert-success">
+    <strong>Berhasil,</strong> Berhasil Absen
+</div>
+<?php
+    }else if($_GET['s'] == "2"){
+                        ?>
+<div class="alert alert-danger">
+    <strong>Maaf !</strong> Kamu sudah request absen hari ini
+</div>
+<?php
+                        }
+                    }
+                
 }

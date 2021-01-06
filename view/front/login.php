@@ -9,7 +9,7 @@ if (@$_SESSION['dosen'] || @$_SESSION['mahasiswa']) {
 ?>
 
 <div class="container d-flex justify-content-center mt-5">
-    <div class="col-md-4 mt-4">
+    <div class="col-md-4 mt-3">
         <div class="card" style="-webkit-box-shadow: -1px 20px 66px -21px rgba(0,0,0,0.59);
 -moz-box-shadow: -1px 20px 66px -21px rgba(0,0,0,0.59);
 box-shadow: -1px 20px 66px -21px rgba(0,0,0,0.59);">
@@ -17,7 +17,7 @@ box-shadow: -1px 20px 66px -21px rgba(0,0,0,0.59);">
                 <h4 style="color: white;">Login disini</h4>
             </div>
             <div class="card-body">
-                <form action="index.php?h=auth" method="post">
+                <form action="" method="post">
                     <div class="form-group mt-1">
                         <label for="username">Username</label>
                         <input required type="username" name="username" id="username" placeholder="Masukan username"
@@ -29,8 +29,13 @@ box-shadow: -1px 20px 66px -21px rgba(0,0,0,0.59);">
                         <input required type="password" name="passwor" id="passwordd" placeholder="Masukan kata sandi"
                             class="form-control mt-1">
                     </div>
+                    <div class="form-group mt-2">
+                        <label for="kode">Kode google authenticator</label>
+                        <input type="password" name="code" id="kode" placeholder="Masukan Kode Google Authenticator"
+                            class="form-control mt-1" required>
+                    </div>
 
-                    <button type="submit" name="lanjut" class="btn btn-primary form-control mt-4">Lanjut</button>
+                    <button type="submit" name="lanjut" class="btn btn-primary form-control mt-4">Masuk</button>
                 </form>
             </div>
             <div class="card-footer bg-white">
@@ -40,7 +45,8 @@ box-shadow: -1px 20px 66px -21px rgba(0,0,0,0.59);">
                 </a>
             </div>
         </div>
-        <div class="modal fade" id="exampleModal22" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal fade" id="exampleModal22" tabindex="-1" aria-labelledby="exampleModalLabel"
+            aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">

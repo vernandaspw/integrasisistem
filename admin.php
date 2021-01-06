@@ -65,10 +65,47 @@ if (@$_SESSION['dosen'] || @$_SESSION['mahasiswa']) {
                         </a>
 
                         <div class="sb-sidenav-menu-heading">Menu</div>
-                        <a class="nav-link" href="admin.php?b=absensi">
+                        <?php 
+                        if (@$_SESSION['mahasiswa']) {
+                        ?>
+                        <a class="nav-link" href="admin.php?b=absen">
                             <div class="sb-nav-link-icon"><i class="fas fa-chart-area"></i></div>
-                            Absensi mahasiswa
+                            Absen
                         </a>
+                        <?php } ?>
+                        <?php 
+                        if (@$_SESSION['mahasiswa']) {
+                        ?>
+                        <a class="nav-link" href="admin.php?b=riwayatabsen">
+                            <div class="sb-nav-link-icon"><i class="fas fa-chart-area"></i></div>
+                            Riwayat Absensi
+                        </a>
+                        <?php } ?>
+                        <?php 
+                        if (@$_SESSION['dosen']) {
+                        ?>
+                        <a class="nav-link" href="admin.php?b=konfirmasiakun">
+                            <div class="sb-nav-link-icon"><i class="fas fa-chart-area"></i></div>
+                            Konfirmasi akun
+                        </a>
+                        <?php } ?>
+                        <?php 
+                        if (@$_SESSION['dosen']) {
+                        ?>
+                        <a class="nav-link" href="admin.php?b=konfirmasiabsensi">
+                            <div class="sb-nav-link-icon"><i class="fas fa-chart-area"></i></div>
+                            Konfirmasi absensi
+                        </a>
+                        <?php } ?>
+                        <?php 
+                        if (@$_SESSION['dosen']) {
+                        ?>
+                        <a class="nav-link" href="admin.php?b=laporanabsen">
+                            <div class="sb-nav-link-icon"><i class="fas fa-chart-area"></i></div>
+                            Laporan absen hari ini
+                        </a>
+                        <?php } ?>
+
                     </div>
                 </div>
                 <div class="sb-sidenav-footer">

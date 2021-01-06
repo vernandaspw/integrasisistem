@@ -7,7 +7,7 @@ session_start();
 daftardosen();
 daftarmahasiswa();
 login();
-auth();
+
 
 ?>
 

@@ -20,7 +20,7 @@ $jumlahperempuan = mysqli_fetch_array(mysqli_query($conn, "SELECT count(*) from 
             </ol>
             <div class="row">
                 <div class="col-xl-3 col-md-6">
-                    <div class="card bg-info text-white mb-4" style="-webkit-box-shadow: -1px 20px 66px -21px rgba(0,0,0,0.59);
+                    <div class="card bg-info text-white mb-4 border-0" style="-webkit-box-shadow: -1px 20px 66px -21px rgba(0,0,0,0.59);
 -moz-box-shadow: -1px 20px 66px -21px rgba(0,0,0,0.59);
 box-shadow: -1px 20px 66px -21px rgba(0,0,0,0.59);">
                         <div class="card-body">
@@ -35,7 +35,7 @@ box-shadow: -1px 20px 66px -21px rgba(0,0,0,0.59);">
                     </div>
                 </div>
                 <div class="col-xl-3 col-md-6">
-                    <div class="card bg-primary text-white mb-4" style="-webkit-box-shadow: -1px 20px 66px -21px rgba(0,0,0,0.59);
+                    <div class="card bg-primary text-white mb-4 border-0" style="-webkit-box-shadow: -1px 20px 66px -21px rgba(0,0,0,0.59);
 -moz-box-shadow: -1px 20px 66px -21px rgba(0,0,0,0.59);
 box-shadow: -1px 20px 66px -21px rgba(0,0,0,0.59);">
                         <div class="card-body">
@@ -47,7 +47,7 @@ box-shadow: -1px 20px 66px -21px rgba(0,0,0,0.59);">
                     </div>
                 </div>
                 <div class="col-xl-3 col-md-6">
-                    <div class="card bg-success text-white mb-4" style="-webkit-box-shadow: -1px 20px 66px -21px rgba(0,0,0,0.59);
+                    <div class="card bg-success text-white mb-4 border-0" style="-webkit-box-shadow: -1px 20px 66px -21px rgba(0,0,0,0.59);
 -moz-box-shadow: -1px 20px 66px -21px rgba(0,0,0,0.59);
 box-shadow: -1px 20px 66px -21px rgba(0,0,0,0.59);">
                         <div class="card-body">
@@ -59,7 +59,7 @@ box-shadow: -1px 20px 66px -21px rgba(0,0,0,0.59);">
                     </div>
                 </div>
                 <div class="col-xl-3 col-md-6">
-                    <div class="card bg-danger text-white mb-4" style="-webkit-box-shadow: -1px 20px 66px -21px rgba(0,0,0,0.59);
+                    <div class="card bg-danger text-white mb-4 border-0" style="-webkit-box-shadow: -1px 20px 66px -21px rgba(0,0,0,0.59);
 -moz-box-shadow: -1px 20px 66px -21px rgba(0,0,0,0.59);
 box-shadow: -1px 20px 66px -21px rgba(0,0,0,0.59);">
                         <div class="card-body">
@@ -76,7 +76,7 @@ box-shadow: -1px 20px 66px -21px rgba(0,0,0,0.59);">
 box-shadow: 3px 18px 61px -24px rgba(0,0,0,0.59);">
                 <div class="card-header">
                     <i class="fas fa-table mr-1"></i>
-                    Mahasiswa
+                    Mahasiswa Dikelas ini
                 </div>
                 <div class="card-body">
                     <div class="table-responsive">
@@ -97,7 +97,6 @@ box-shadow: 3px 18px 61px -24px rgba(0,0,0,0.59);">
                             <tbody>
                                 <?php 
                                 while ($row = mysqli_fetch_assoc($sql_user)){
-                                
                                 ?>
                                 <tr>
                                     <td><?= $row['npm']; ?></td>
@@ -106,15 +105,16 @@ box-shadow: 3px 18px 61px -24px rgba(0,0,0,0.59);">
                                     <?php 
                                     if (@$_SESSION['dosen']) {
                                     ?>
-                                    <td>
-                                        <center><a href="admin.php?b=ubahm&npm=<?= $row['npm']; ?>"
-                                                class="btn btn-info">Edit</a>
-                                            &nbsp; &nbsp;
-                                            <a href="admin.php?b=hapusm&npm=<?= $row['npm']; ?>"
-                                                onclick="return confirm('Apakah yakin ingin dihapus?')">
-                                                <Button class="btn btn-danger">Hapus</Button>
-                                            </a>
-                                        </center>
+                                    <td class="d-flex justify-content-center">
+                                        <a href="admin.php?b=ubahm&npm=<?= $row['npm']; ?>"
+                                            class="btn btn-info form-control">Edit</a>
+                                        &nbsp;&nbsp;
+                                        <a href="admin.php?b=hapusm&npm=<?= $row['npm']; ?> " onclick=" return
+                                            confirm('Apakah yakin ingin dihapus?')"
+                                            class="btn btn-danger form-control">
+                                            Hapus
+                                        </a>
+
                                     </td>
                                     <?php } else {} ?>
                                 </tr>
@@ -130,7 +130,7 @@ box-shadow: 3px 18px 61px -24px rgba(0,0,0,0.59);">
     <footer class="py-4 bg-light mt-auto">
         <div class="container-fluid">
             <div class="d-flex align-items-center justify-content-between small">
-                <div class="text-muted">Copyright &copy; Your Website 2020</div>
+                <div class="text-muted">Copyright &copy; Kelompok 4 2020-<?= date("Y") ?></div>
                 <div>
                     <a href="#">Privacy Policy</a>
                     &middot;
