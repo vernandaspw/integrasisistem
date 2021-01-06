@@ -34,12 +34,12 @@
                         </div>
                         <div class="form-group">
                             <label for="tanggal">Tanggal</label>
-                            <input readonly type="text" name="tanggal" id="tanggal" class="form-control bg-grey"
-                                aria-describedby="helpId" value="<?= date("d-m-Y"); ?>">
+                            <input readonly required type="text" name="tanggal" id="tanggal"
+                                class="form-control bg-grey" aria-describedby="helpId" value="<?= date("d-m-Y"); ?>">
                         </div>
                         <div class="form-group">
                             <label for="status">Status</label>
-                            <select name="status" id="status" class="form-control">
+                            <select required name="status" id="status" class="form-control">
                                 <option value="">-Pilih-</option>
                                 <option class="text-success" value="Hadir">Hadir</option>
                                 <option class="text-info" value="Izin">Izin</option>
@@ -49,7 +49,8 @@
                         </div>
                         <div class="form-group mt-1">
                             <label for="keterangan">Keterangan</label> <br>
-                            <textarea class="form-control" id="keterangan" name="keterangan" rows="3"></textarea>
+                            <textarea required class="form-control" id="keterangan" name="keterangan"
+                                rows="3"></textarea>
                         </div>
                         <button type="submit" name="submitabsen"
                             class="btn btn-primary form-control shadow">Kirim</button>
